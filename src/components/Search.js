@@ -50,15 +50,19 @@ const Search = () => {
           </MDBCol>
         </MDBRow>
         <MDBRow>
-        <MDBCol md="8"> 
-              {searchResult.map(result=>{
-                  return (
-                    <div className="embed-responsive embed-responsive-16by9 mb-5">
-                    <iframe className="embed-responsive-item" src={`https://www.youtube.com/embed/${result.id.videoId}`} allowFullScreen></iframe>
-                  </div>
-                  )
-              })}
-        </MDBCol>
+          <MDBCol md="8">
+            {searchResult.map((result) => {
+              return (
+                <div className="embed-responsive embed-responsive-16by9 mb-5">
+                  <iframe
+                    className="embed-responsive-item"
+                    src={`https://www.youtube.com/embed/${result.id.videoId}`}
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              );
+            })}
+          </MDBCol>
         </MDBRow>
       </MDBContainer>
     </React.Fragment>
