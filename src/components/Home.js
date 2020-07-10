@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import image from "../images/5870-removebg.png";
+import image from "../images/3929641_burned.png";
 function Home() {
     return (
         <MDBContainer>

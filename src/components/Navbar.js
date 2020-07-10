@@ -17,9 +17,9 @@ function NavBar() {
     }
     return (
         <>
-            <MDBNavbar color="red lighten-1" dark expand="md">
+            <MDBNavbar color="white" dark expand="md">
                 <MDBNavbarBrand>
-                    <strong className="white-text">Favourite Songs</strong>
+                    <strong className="black-text">Favourite Songs</strong>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>

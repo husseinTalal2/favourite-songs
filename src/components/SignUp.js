@@ -9,13 +9,13 @@ import {
     MDBIcon,
     MDBInput,
 } from "mdbreact";
-import image from "../images/Saxaphone_vector_1-removebg-preview.png"
+import image from "../images/31501.jpg"
 console.log("from signup");
 function SignUp() {
     return (
         <MDBContainer className="my-5" >
             <MDBRow className="justify-content-center ">
-                <MDBCol md="7">
+                <MDBCol md="6">
                     <img className="img-fluid" src={image} />
                 </MDBCol>
                 <MDBCol md="5">
@@ -51,6 +51,8 @@ function SignUp() {
                                     >
                                         Log In
                                     </MDBBtn>
+                                    <p className="text-muted mt-3">Don't have an account?</p>
+                                    <p>Sign Up with</p>
                                 </div>
                             </form>
                         </MDBCardBody>
