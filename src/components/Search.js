@@ -10,18 +10,29 @@ import {
 } from "mdbreact";
 import API from "./API";
 import { State } from "./State";
+import { firestore } from "../firebase";
+
 const Search = () => {
   const [state, dispatch] = useContext(State);
+  const db = firestore;
 
   const handleQueryChange = (e) => {
     dispatch({ type: "SET_QUERY", query: e.target.value });
   };
+
   const handleSearch = () => {
     API.fetch(state.query).then((res) => {
       dispatch({ type: "SET_SEARCH_RESULT", searchResult: res.items });
-      console.log(res.items);
     });
   };
+
+  const handleFavoriteSong = (key, value) => {
+    const addedUser = {
+      key: value,
+    };
+    db.collection("users").add(addedUser);
+  };
+
   return (
     <React.Fragment>
       <MDBContainer>
