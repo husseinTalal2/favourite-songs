@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   MDBContainer,
   MDBCol,
@@ -9,20 +9,16 @@ import {
   MDBInput,
 } from "mdbreact";
 import API from "./API";
+import { State } from "./State";
 const Search = () => {
-  const [query, setQuery] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-
-  useEffect(() => {
-    console.log(API.API_KEY);
-  }, []);
+  const [state, dispatch] = useContext(State);
 
   const handleQueryChange = (e) => {
-    setQuery(e.target.value);
+    dispatch({ type: "SET_QUERY", query: e.target.value });
   };
   const handleSearch = () => {
-    API.fetch(query).then((res) => {
-      setSearchResult(res.items);
+    API.fetch(state.query).then((res) => {
+      dispatch({ type: "SET_SEARCH_RESULT", searchResult: res.items });
       console.log(res.items);
     });
   };
@@ -51,7 +47,7 @@ const Search = () => {
         </MDBRow>
         <MDBRow>
           <MDBCol md="8">
-            {searchResult.map((result) => {
+            {state.searchResult.map((result) => {
               return (
                 <div className="mb-5">
                   <div className="embed-responsive embed-responsive-16by9 mb-1">
