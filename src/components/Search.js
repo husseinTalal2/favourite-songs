@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import {
   MDBContainer,
   MDBCol,
-  MDBInput,
   MDBRow,
   MDBBtn,
-  MDBFormInline,
   MDBInputGroup,
+  MDBIcon,
+  MDBInput,
 } from "mdbreact";
 import API from "./API";
 const Search = () => {
@@ -53,12 +53,20 @@ const Search = () => {
           <MDBCol md="8">
             {searchResult.map((result) => {
               return (
-                <div className="embed-responsive embed-responsive-16by9 mb-5">
-                  <iframe
-                    className="embed-responsive-item"
-                    src={`https://www.youtube.com/embed/${result.id.videoId}`}
-                    allowFullScreen
-                  ></iframe>
+                <div className="mb-5">
+                  <div className="embed-responsive embed-responsive-16by9 mb-1">
+                    <iframe
+                      className="embed-responsive-item"
+                      src={`https://www.youtube.com/embed/${result.id.videoId}`}
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  <MDBBtn
+                    color="danger"
+                    className="ml-3 px-3 py-2 z-depth-0 rounded"
+                  >
+                    Favorite song ❤
+                  </MDBBtn>
                 </div>
               );
             })}
