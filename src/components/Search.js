@@ -26,13 +26,15 @@ const Search = () => {
     });
   };
 
-  const handleFavoriteSong = (key, value) => {
-    const addedUser = {
-      key: value,
+  const AddSong = (Etag, VideoId) => {
+    const user = {
+      [Etag]: VideoId,
     };
-    db.collection("users").add(addedUser);
+    AddSongInfo(user);
   };
-
+  const AddSongInfo = (user) => {
+    db.collection("users").doc("6bZV5A9YNyWeWB85WTV8").update(user);
+  };
   return (
     <React.Fragment>
       <MDBContainer>
@@ -72,6 +74,9 @@ const Search = () => {
                   <MDBBtn
                     color="danger"
                     className="ml-3 px-3 py-2 z-depth-0 rounded"
+                    onClick={()=>{
+                      AddSong(result.etag , result.id.videoId)
+                    }}
                   >
                     Favorite song ❤
                   </MDBBtn>
