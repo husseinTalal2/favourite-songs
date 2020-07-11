@@ -66,6 +66,7 @@ const Search = () => {
                       className="embed-responsive-item"
                       src={`https://www.youtube.com/embed/${result.id.videoId}`}
                       allowFullScreen
+                      title={result.id.videoId}
                     ></iframe>
                   </div>
                   <MDBBtn
