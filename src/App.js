@@ -5,12 +5,15 @@ import "bootstrap/dist/css/bootstrap.css";
 import Main from "./components/Main";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
+import ContextProvider from "./components/Context";
 
 function App() {
     return (
         <Router>
-            <Navbar />
-            <Main />
+            <ContextProvider>
+                <Navbar />
+                <Main />
+            </ContextProvider>
         </Router>
     );
 }
