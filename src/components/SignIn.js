@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { auth } from "../firebase";
 import firebase from "firebase";
 import { Context } from "./Context";
+import {Redirect} from "react-router-dom" 
 import {
     MDBContainer,
     MDBRow,
@@ -14,6 +15,7 @@ import {
 } from "mdbreact";
 import { Link } from "react-router-dom";
 import image from "../images/31501.jpg";
+import { actions } from "../AccountActions";
 
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
@@ -28,19 +30,33 @@ const uiConfig = {
     //   }
 };
 function SignIn() {
-    const [user, dispatch] = useContext(Context);
+    const [state,dispatch] = useContext(Context);
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if (user) {
                 dispatch({ type: "SET_USER", user: user });
-                dispatch({type: "LOGGED_IN", isLogged: true })
+                dispatch({ type: "LOGGED_IN", isLogged: true });
             } else {
                 console.log("not signed in ");
             }
         });
     }, [dispatch]);
-
-    console.log(user);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const handleSignIn = (e) => {
+        e.preventDefault();
+        actions.signIn(email, password);
+    };
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+    };
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    };
+    
+    if(firebase.auth().currentUser){
+        return <Redirect to="/" />
+    }
     return (
         <MDBContainer className="my-5">
             <MDBRow className="justify-content-center ">
@@ -71,6 +87,7 @@ function SignIn() {
                                     validate
                                     error="wrong"
                                     success="right"
+                                    onChange={handleEmail}
                                 />
                                 <MDBInput
                                     className="black-text "
@@ -80,15 +97,19 @@ function SignIn() {
                                     group
                                     type="password"
                                     validate
+                                    onChange={handlePassword}
                                 />
 
                                 <div className="text-center py-1 ">
-                                    <MDBBtn
-                                        className="aqua-gradient"
-                                        type="submit"
-                                    >
-                                        Log In
-                                    </MDBBtn>
+                                    <Link to="/">
+                                        <MDBBtn
+                                            className="aqua-gradient"
+                                            type="submit"
+                                            onClick={handleSignIn}
+                                        >
+                                            Log In
+                                        </MDBBtn>
+                                    </Link>
                                     <p className="text-muted mt-3">
                                         Don't have an account?
                                     </p>

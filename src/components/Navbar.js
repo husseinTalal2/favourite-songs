@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import firebase from "firebase";
+
 import "firebase/auth";
 import { Link } from "react-router-dom";
 import { Context } from "./Context";
@@ -26,9 +26,7 @@ function NavBar() {
         setIsOpen(!isOpen);
     }
     const handleOut = () => {
-        actions
-            .signOut()
-            .then(() => dispatch({ type: "LOGGED_IN", isLogged: false }));
+        actions.signOut().then(() => dispatch({ type: "LOGGED_IN", isLogged: false }));
     };
     return (
         <>

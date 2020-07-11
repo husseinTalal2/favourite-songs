@@ -15,7 +15,6 @@ function Home() {
             }
         });
     }, [dispatch]);
-
     return (
         <MDBContainer>
             <MDBRow>
