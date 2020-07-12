@@ -46,16 +46,7 @@ const Search = () => {
         [Etag]: FieldValue.delete(),
       });
   };
-  // const RemoveSong = (Etag) => {
-  //   RemoveSongInfo(Etag);
-  // };
-  // const RemoveSongInfo = (Etag) => {
-  //   db.collection("users")
-  //     .doc("6bZV5A9YNyWeWB85WTV8")
-  //     .update({
-  //       [Etag]: FieldValue.delete(),
-  //     });
-  // };
+
   return (
     <React.Fragment>
       <MDBContainer>
@@ -81,9 +72,9 @@ const Search = () => {
         </MDBRow>
         <MDBRow>
           <MDBCol md="8">
-            {state.searchResult.map((result) => {
+            {state.searchResult.map((result, index) => {
               return (
-                <div className="mb-5" id={result.id.videoId}>
+                <div className="mb-5">
                   <div className="embed-responsive embed-responsive-16by9 mb-1">
                     <iframe
                       className="embed-responsive-item"
@@ -97,10 +88,11 @@ const Search = () => {
                       color="danger"
                       className="ml-3 px-3 py-2 z-depth-0 rounded"
                       onClick={() => {
+                        console.log(index);
                         RemoveSong(result.etag);
                       }}
                     >
-                      Favorited
+                      Favorited ❤
                     </MDBBtn>
                   ) : (
                     <MDBBtn
@@ -110,7 +102,7 @@ const Search = () => {
                         AddSong(result.etag, result.id.videoId);
                       }}
                     >
-                      Favorite song ❤
+                      Favorite song
                     </MDBBtn>
                   )}
                 </div>
