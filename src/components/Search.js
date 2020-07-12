@@ -10,10 +10,11 @@ import {
 } from "mdbreact";
 import API from "./API";
 import { State } from "./State";
-import { firestore } from "../firebase";
+import { firestore, FieldValue } from "../firebase";
 
 const Search = () => {
   const [state, dispatch] = useContext(State);
+  const [added, setAdded] = useState(false);
   const db = firestore;
 
   const handleQueryChange = (e) => {
@@ -27,21 +28,34 @@ const Search = () => {
   };
 
   const AddSong = (Etag, VideoId) => {
-    const user = {
-      // name : authuser.name
+    const song = {
       [Etag]: VideoId,
     };
-    AddSongInfo(user);
+    AddSongInfo(song);
   };
-  const AddSongInfo = (user) => {
-    db.collection("users").doc("6bZV5A9YNyWeWB85WTV8").update(user);
+  const AddSongInfo = (song) => {
+    db.collection("users/cbuFzd5wZwcvW25GwIiWleMx6Te2/songs")
+      .doc("songsDoc")
+      .update(song);
   };
 
-  const RemoveSongInfo = (Etag) => {
-    db.collection("users").doc("6bZV5A9YNyWeWB85WTV8").update({
-      [Etag] : db.FieldValue.delete()
-    });
+  const RemoveSong = (Etag) => {
+    db.collection("users/cbuFzd5wZwcvW25GwIiWleMx6Te2/songs")
+      .doc("songsDoc")
+      .update({
+        [Etag]: FieldValue.delete(),
+      });
   };
+  // const RemoveSong = (Etag) => {
+  //   RemoveSongInfo(Etag);
+  // };
+  // const RemoveSongInfo = (Etag) => {
+  //   db.collection("users")
+  //     .doc("6bZV5A9YNyWeWB85WTV8")
+  //     .update({
+  //       [Etag]: FieldValue.delete(),
+  //     });
+  // };
   return (
     <React.Fragment>
       <MDBContainer>
@@ -69,7 +83,7 @@ const Search = () => {
           <MDBCol md="8">
             {state.searchResult.map((result) => {
               return (
-                <div className="mb-5">
+                <div className="mb-5" id={result.id.videoId}>
                   <div className="embed-responsive embed-responsive-16by9 mb-1">
                     <iframe
                       className="embed-responsive-item"
@@ -78,15 +92,27 @@ const Search = () => {
                       title={result.id.videoId}
                     ></iframe>
                   </div>
-                  <MDBBtn
-                    color="danger"
-                    className="ml-3 px-3 py-2 z-depth-0 rounded"
-                    onClick={() => {
-                      AddSong(result.etag, result.id.videoId);
-                    }}
-                  >
-                    Favorite song ❤
-                  </MDBBtn>
+                  {["d3QWmEeKO0w"].includes(result.id.videoId) ? (
+                    <MDBBtn
+                      color="danger"
+                      className="ml-3 px-3 py-2 z-depth-0 rounded"
+                      onClick={() => {
+                        RemoveSong(result.etag);
+                      }}
+                    >
+                      Favorited
+                    </MDBBtn>
+                  ) : (
+                    <MDBBtn
+                      color="danger"
+                      className="ml-3 px-3 py-2 z-depth-0 rounded"
+                      onClick={() => {
+                        AddSong(result.etag, result.id.videoId);
+                      }}
+                    >
+                      Favorite song ❤
+                    </MDBBtn>
+                  )}
                 </div>
               );
             })}
