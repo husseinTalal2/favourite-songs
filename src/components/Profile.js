@@ -18,7 +18,7 @@ function Profile() {
             dispatch({ type: "SET_USER_SONGS", userSongs: songs });
         });
     }, []);
-
+    console.log(actions.getUsersSongs());
     return (
         <MDBContainer>
             <MDBRow className="mt-5 py-5">
