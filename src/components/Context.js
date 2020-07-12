@@ -4,14 +4,17 @@ import { createContext } from "react";
 const initState = {
     user: {},
     isLogged: false,
+    userSongs: [],
 };
 const reducer = (state = initState, action) => {
     const { type, user } = action;
-    switch (type) {
+    switch (action.type) {
         case "SET_USER":
-            return { ...state, user: user };
+            return { ...state, user: action.user };
         case "LOGGED_IN":
             return { ...state, isLogged: true };
+        case "SET_USER_SONGS":
+            return { ...state, userSongs: action.userSongs };
         default:
             return state;
     }

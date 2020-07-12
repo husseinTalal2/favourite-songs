@@ -3,7 +3,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { auth } from "../firebase";
 import firebase from "firebase";
 import { Context } from "./Context";
-import {Redirect} from "react-router-dom" 
+import { useHistory } from "react-router-dom";
 import {
     MDBContainer,
     MDBRow,
@@ -21,16 +21,17 @@ const uiConfig = {
     // Popup signin flow rather than redirect flow.
     signInFlow: "popup",
     // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: "/",
+    //signInSuccessUrl: "/",
     // We will display Google as auth providers.
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-    // callbacks: {
-    //     // Avoid redirects after sign-in.
-    //     signInSuccessWithAuthResult: () => false
-    //   }
+    callbacks: {
+        // Avoid redirects after sign-in.
+        signInSuccessWithAuthResult: () => false,
+    },
 };
 function SignIn() {
-    const [state,dispatch] = useContext(Context);
+    const history = useHistory();
+    const [state, dispatch] = useContext(Context);
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if (user) {
@@ -53,9 +54,11 @@ function SignIn() {
     const handlePassword = (e) => {
         setPassword(e.target.value);
     };
-    
-    if(firebase.auth().currentUser){
-        return <Redirect to="/" />
+
+    if (firebase.auth().currentUser) {
+        //return <Redirect to="/" />
+        dispatch({type:"LOGGED_IN", isLogged:!!firebase.auth().currentUser})
+        history.push("/");
     }
     return (
         <MDBContainer className="my-5">
