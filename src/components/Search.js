@@ -47,6 +47,10 @@ const Search = () => {
       });
   };
 
+  const ChangeButtonContent = (e) => {
+    const tobechanged = state.searchResult.find(res => res.id.videoId === e.target.value)
+    console.log(tobechanged)
+  };
   return (
     <React.Fragment>
       <MDBContainer>
@@ -87,8 +91,8 @@ const Search = () => {
                     <MDBBtn
                       color="danger"
                       className="ml-3 px-3 py-2 z-depth-0 rounded"
-                      onClick={() => {
-                        console.log(index);
+                      onClick={(e) => {
+                        ChangeButtonContent(e);
                         RemoveSong(result.etag);
                       }}
                     >
@@ -97,8 +101,10 @@ const Search = () => {
                   ) : (
                     <MDBBtn
                       color="danger"
+                      value={result.id.videoId}
                       className="ml-3 px-3 py-2 z-depth-0 rounded"
-                      onClick={() => {
+                      onClick={(e) => {
+                        ChangeButtonContent(e);
                         AddSong(result.etag, result.id.videoId);
                       }}
                     >
