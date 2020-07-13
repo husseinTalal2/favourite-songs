@@ -14,7 +14,7 @@ import { firestore, FieldValue } from "../firebase";
 
 const Search = () => {
   const [state, dispatch] = useContext(State);
-  const [added, setAdded] = useState(false);
+  const [added, setAdded] = useState([]);
   const db = firestore;
 
   const handleQueryChange = (e) => {
@@ -34,22 +34,23 @@ const Search = () => {
     AddSongInfo(song);
   };
   const AddSongInfo = (song) => {
-    db.collection("users/cbuFzd5wZwcvW25GwIiWleMx6Te2/songs")
-      .doc("songsDoc")
-      .update(song);
+    db.collection("etst").doc("songs").set(song, { merge: true });
   };
 
   const RemoveSong = (Etag) => {
-    db.collection("users/cbuFzd5wZwcvW25GwIiWleMx6Te2/songs")
-      .doc("songsDoc")
-      .update({
-        [Etag]: FieldValue.delete(),
-      });
+    db.collection("etst")
+      .doc("songs")
+      .set(
+        {
+          [Etag]: FieldValue.delete(),
+        },
+        { merge: true }
+      );
   };
-
-  const ChangeButtonContent = (e) => {
-    const tobechanged = state.searchResult.find(res => res.id.videoId === e.target.value)
-    console.log(tobechanged)
+  const handleClick = (id) => {
+    const selected = state.searchResult.find((res) => res.id.videoId === id);
+    console.log(selected);
+    setAdded((prev) => [...prev, { id: id, isClicked: true }]);
   };
   return (
     <React.Fragment>
@@ -91,8 +92,7 @@ const Search = () => {
                     <MDBBtn
                       color="danger"
                       className="ml-3 px-3 py-2 z-depth-0 rounded"
-                      onClick={(e) => {
-                        ChangeButtonContent(e);
+                      onClick={() => {
                         RemoveSong(result.etag);
                       }}
                     >
@@ -104,11 +104,13 @@ const Search = () => {
                       value={result.id.videoId}
                       className="ml-3 px-3 py-2 z-depth-0 rounded"
                       onClick={(e) => {
-                        ChangeButtonContent(e);
+                        handleClick(result.id.videoId);
                         AddSong(result.etag, result.id.videoId);
                       }}
                     >
-                      Favorite song
+                      {added.some((obj) => obj.id === result.id.videoId)
+                        ? "Favorited"
+                        : "Favorite song"}
                     </MDBBtn>
                   )}
                 </div>
