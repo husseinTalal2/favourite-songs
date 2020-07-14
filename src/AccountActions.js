@@ -13,33 +13,37 @@ export const actions = {
 
 async function getUserSongs(uid) {
     let songs;
-    const songsRef = db.collection(`users/${uid}/songs`).doc("songsDoc");
+    const songsRef = db.collection(`hossien`).doc("songs");
     await songsRef.get().then((doc) => {
         songs = Object.values(doc.data());
     });
     return songs;
 }
+async function getUserNames() {
+    let userNames
+    const userNamesRef = db.collection("userNames").doc("name")
+    await userNamesRef.get().then((name)=>{
+        userNames=name.data().userNames;
+        
+    })
+    return userNames
+}
 
-function getUsersSongs() {
-    let usersSongsWithNames = [];
-    let songsArr = [];
-
-    db.collection("users").onSnapshot((snapshot) => {
-        snapshot.docs.map((doc) => {
-            let userSongs = [];
-            let name = doc.data().name;
-            const songsRef = doc.data().songs;
-            songsRef
-                .get()
-                .then((doc) => {
-                    Object.values(doc.data()).forEach((song) =>
-                        userSongs.push(song)
-                    );
-                })
-                .catch((err) => console.log(err.message));
-            usersSongsWithNames.push({ name: name, songs: userSongs });
-        });
-    });
-    console.log(usersSongsWithNames);
-    return usersSongsWithNames;
+async function getUsersSongs(){
+    let usersWithSongs;
+    //console.log(getUserNames());
+    await getUserNames().then(async userName => {
+        usersWithSongs = userName.map(async name => {
+            let userSongs
+            await db.collection(name).doc("songs").get().then(songs => {
+                userSongs = Object.values(songs.data());
+              //  console.log(userSongs);
+            })
+            //console.log({name:name, songs: userSongs});
+            return {name:name, songs: userSongs}
+        })
+        
+    })
+    return usersWithSongs
+  
 }
