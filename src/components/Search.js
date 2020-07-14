@@ -1,13 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-    MDBContainer,
-    MDBCol,
-    MDBRow,
-    MDBBtn,
-    MDBInputGroup,
-    MDBIcon,
-    MDBInput,
-} from "mdbreact";
+import React, { useState, useContext } from "react";
+import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBInputGroup } from "mdbreact";
 import API from "./API";
 import { Context } from "./Context";
 import { firestore, FieldValue } from "../firebase";
@@ -36,7 +28,7 @@ const Search = () => {
     };
     const AddSongInfo = (song) => {
         db.collection(state.user.uid).doc("songs").set(song, { merge: true });
-        actions.addUsername(state.user.uid, state.user.displayName)
+        actions.addUsername(state.user.uid, state.user.displayName);
     };
 
     const RemoveSong = (Etag) => {

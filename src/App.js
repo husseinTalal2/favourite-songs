@@ -1,5 +1,4 @@
-import firebase from "./firebase";
-import { auth, firestore } from "./firebase";
+
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Main from "./components/Main";

@@ -4,7 +4,7 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import image from "../images/3929641_burned.png";
 import { Context } from "./Context";
 function Home() {
-    const [state, dispatch] = useContext(Context);
+    const [, dispatch] = useContext(Context);
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if (user) {

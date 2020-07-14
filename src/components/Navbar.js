@@ -26,7 +26,9 @@ function NavBar() {
         setIsOpen(!isOpen);
     }
     const handleOut = () => {
-        actions.signOut().then(() => dispatch({ type: "LOGGED_IN", isLogged: false }));
+        actions
+            .signOut()
+            .then(() => dispatch({ type: "LOGGED_IN", isLogged: false }));
     };
     return (
         <>
@@ -40,7 +42,7 @@ function NavBar() {
                         <MDBNavItem active>
                             <Link to="/">Home</Link>
                         </MDBNavItem>
-                        <MDBNavItem >
+                        <MDBNavItem>
                             <Link to="/explore">Explore</Link>
                         </MDBNavItem>
                     </MDBNavbarNav>

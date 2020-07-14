@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import firebase from "firebase";
 import { Context } from "./Context";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { actions } from "../AccountActions";
-import Search from "./Search"
+import Search from "./Search";
 function Profile() {
     const [state, dispatch] = useContext(Context);
 
@@ -18,11 +18,11 @@ function Profile() {
         actions.getUserSongs(currentUser.uid).then((songs) => {
             dispatch({ type: "SET_USER_SONGS", userSongs: songs });
         });
-    }, []);
-    //console.log(actions.getUsersSongs());
+    }, [currentUser, dispatch]);
+
     return (
         <MDBContainer>
-            <Search/>
+            <Search />
             <MDBRow className="mt-5 py-5">
                 {state.userSongs.map((song) => (
                     <MDBCol md="4">

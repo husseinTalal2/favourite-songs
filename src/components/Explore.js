@@ -1,47 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { actions } from "../AccountActions";
-import {MDBCol} from "mdbreact";
+import { MDBCol } from "mdbreact";
 function Explore() {
     const [users, setUsers] = useState([]);
-    
+
     useEffect(() => {
         console.log(actions.getUsersSongs());
         actions.getUsersSongs().then((usersPromise) => {
-            
-            usersPromise.forEach(userPromise => {
-                
-                userPromise.then(userObj => {
-                    
-                    setUsers( (pre)=> [...pre,userObj])
-                })
+            usersPromise.forEach((userPromise) => {
+                userPromise.then((userObj) => {
+                    setUsers((pre) => [...pre, userObj]);
+                });
             });
         });
     }, []);
-    console.log(users);
+
     return (
         <>
-            { 
-                users.map(user => (
+            {users.map((user) => (
                 <>
-                <p>{user.name}</p>
-                <div>
-
-                    {user.songs.map((song) => (
-                        <MDBCol md="4">
-                            <iframe
-                                className="embed-responsive-item"
-                                key={song}
-                                src={`https://www.youtube.com/embed/${song}`}
-                                frameBorder="0"
-                                allowFullScreen
-                                title={song}
-                            ></iframe>
-                        </MDBCol>
-                    ))}
-                </div>
+                    <p>{user.name}</p>
+                    <div>
+                        {user.songs.map((song) => (
+                            <MDBCol md="4">
+                                <iframe
+                                    className="embed-responsive-item"
+                                    key={song}
+                                    src={`https://www.youtube.com/embed/${song}`}
+                                    frameBorder="0"
+                                    allowFullScreen
+                                    title={song}
+                                ></iframe>
+                            </MDBCol>
+                        ))}
+                    </div>
                 </>
-                ))
-            } 
+            ))}
             <div></div>
         </>
     );

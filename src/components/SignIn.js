@@ -31,7 +31,7 @@ const uiConfig = {
 };
 function SignIn() {
     const history = useHistory();
-    const [state, dispatch] = useContext(Context);
+    const [, dispatch] = useContext(Context);
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if (user) {

@@ -1,15 +1,11 @@
 import React from "react";
 import Home from "./Home";
-import Search from './Search'
 import { Route, Switch } from "react-router-dom";
-
-
 import "../App.css";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Profile from "./Profile";
 import Explore from "./Explore";
-
 
 function Main() {
     return (
