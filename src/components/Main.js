@@ -8,6 +8,8 @@ import "../App.css";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Profile from "./Profile";
+import Explore from "./Explore";
+
 
 function Main() {
     return (
@@ -16,6 +18,7 @@ function Main() {
             <Route path={`/signin`} component={SignIn} />
             <Route path={`/signup`} component={SignUp} />
             <Route path={`/profile`} component={Profile} />
+            <Route path={`/explore`} component={Explore} />
         </Switch>
     );
 }

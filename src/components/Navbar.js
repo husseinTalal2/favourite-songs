@@ -40,6 +40,9 @@ function NavBar() {
                         <MDBNavItem active>
                             <Link to="/">Home</Link>
                         </MDBNavItem>
+                        <MDBNavItem >
+                            <Link to="/explore">Explore</Link>
+                        </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
                         {state.isLogged ? (
