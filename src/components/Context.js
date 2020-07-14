@@ -5,6 +5,8 @@ const initState = {
     user: {},
     isLogged: false,
     userSongs: [],
+    searchResult: [],
+    query: "",
 };
 const reducer = (state = initState, action) => {
     const { type, user } = action;
@@ -15,6 +17,10 @@ const reducer = (state = initState, action) => {
             return { ...state, isLogged: true };
         case "SET_USER_SONGS":
             return { ...state, userSongs: action.userSongs };
+        case "SET_SEARCH_RESULT":
+            return { ...state, searchResult: action.searchResult };
+        case "SET_QUERY":
+            return { ...state, query: action.query };
         default:
             return state;
     }

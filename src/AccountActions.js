@@ -13,7 +13,7 @@ export const actions = {
 
 async function getUserSongs(uid) {
     let songs;
-    const songsRef = db.collection(`hossien`).doc("songs");
+    const songsRef = db.collection(uid).doc("songs");
     await songsRef.get().then((doc) => {
         songs = Object.values(doc.data());
     });
