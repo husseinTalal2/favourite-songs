@@ -11,6 +11,7 @@ import {
 import API from "./API";
 import { Context } from "./Context";
 import { firestore, FieldValue } from "../firebase";
+import { actions } from "../AccountActions";
 
 const Search = () => {
     const [state, dispatch] = useContext(Context);
@@ -35,6 +36,7 @@ const Search = () => {
     };
     const AddSongInfo = (song) => {
         db.collection(state.user.uid).doc("songs").set(song, { merge: true });
+        actions.addUsername(state.user.uid, state.user.displayName)
     };
 
     const RemoveSong = (Etag) => {
@@ -90,7 +92,7 @@ const Search = () => {
                                             title={result.id.videoId}
                                         ></iframe>
                                     </div>
-                                    {["d3QWmEeKO0w"].includes(
+                                    {state.userSongs.includes(
                                         result.id.videoId
                                     ) ? (
                                         <MDBBtn

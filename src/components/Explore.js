@@ -5,6 +5,7 @@ function Explore() {
     const [users, setUsers] = useState([]);
     
     useEffect(() => {
+        console.log(actions.getUsersSongs());
         actions.getUsersSongs().then((usersPromise) => {
             
             usersPromise.forEach(userPromise => {
@@ -19,7 +20,7 @@ function Explore() {
     console.log(users);
     return (
         <>
-            {
+            { 
                 users.map(user => (
                 <>
                 <p>{user.name}</p>
@@ -40,7 +41,7 @@ function Explore() {
                 </div>
                 </>
                 ))
-            }
+            } 
             <div></div>
         </>
     );

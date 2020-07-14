@@ -9,7 +9,6 @@ const initState = {
     query: "",
 };
 const reducer = (state = initState, action) => {
-    const { type, user } = action;
     switch (action.type) {
         case "SET_USER":
             return { ...state, user: action.user };
