@@ -3,6 +3,7 @@ import firebase from "firebase";
 import { Context } from "./Context";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { actions } from "../AccountActions";
+import Search from "./Search"
 function Profile() {
     const [state, dispatch] = useContext(Context);
     
@@ -21,6 +22,7 @@ function Profile() {
 
     return (
         <MDBContainer>
+            <Search/>
             <MDBRow className="mt-5 py-5">
                 {state.userSongs.map((song) => (
                     <iframe
