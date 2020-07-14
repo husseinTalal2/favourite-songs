@@ -1,6 +1,8 @@
 import React from "react";
 import Home from "./Home";
+import Search from './Search'
 import { Route, Switch } from "react-router-dom";
+
 
 import "../App.css";
 import SignIn from "./SignIn";

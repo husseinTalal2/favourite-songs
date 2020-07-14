@@ -7,7 +7,13 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
 import * as serviceWorker from "./serviceWorker";
+import { StateProvider } from "./components/State";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <StateProvider>
+    <App />
+  </StateProvider>,
+  document.getElementById("root")
+);
 
 serviceWorker.unregister();
